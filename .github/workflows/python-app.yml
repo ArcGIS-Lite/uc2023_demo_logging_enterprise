@@ -19,7 +19,7 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-          AGOL_ACCOUNT: ${{ secrets.AGOL_ACCOUNT }}
-          AGOL_CREDS: ${{ secrets.AGOL_CREDS }}
-          ITEM_ID: ${{ secrets.ITEM_ID }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+          CREDENTIALS: ${{ secrets.CREDENTIALS }}
+          ACCOUNT: ${{ secrets.ACCOUNT }}
         run: python main.py
