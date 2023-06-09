@@ -1,0 +1,25 @@
+name: run main.py
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # see https://github.com/jtroe/cicd-container-images
+    # and https://github.com/jtroe/cicd-container-images/blob/main/python/arcgis-2.1.0-Conda.Linux.Dockerfile
+    container: ghcr.io/jtroe/cicd-container-images/arcgis-conda:2.1.0
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3 # checkout the repository content
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: execute py script # run main.py
+        env:
+          AGOL_ACCOUNT: ${{ secrets.AGOL_ACCOUNT }}
+          AGOL_CREDS: ${{ secrets.AGOL_CREDS }}
+          ITEM_ID: ${{ secrets.ITEM_ID }}
+        run: python main.py
